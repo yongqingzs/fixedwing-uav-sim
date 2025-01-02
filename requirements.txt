@@ -1,0 +1,4 @@
+pyqtgraph==0.12.4
+PyQt5 
+pyopengl
+pyopengl_accelerate

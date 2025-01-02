@@ -13,7 +13,7 @@ import pyqtgraph.opengl as gl
 import pyqtgraph.Vector as Vector
 sys.path.append('../tools')
 
-from angleConversions import Euler2Rotation
+from tools.angleConversions import Euler2Rotation
 
 class path_viewer():
     def __init__(self):

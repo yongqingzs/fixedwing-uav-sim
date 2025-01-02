@@ -13,6 +13,8 @@ ts_plotting = 0.5  # refresh rate for plots
 
 ts_control = ts_simulation  # sample rate for the controller
 
+ts_video = 0.1  # video sample rate
+
 #Wind parameters
 Lu = 200
 Lv = Lu

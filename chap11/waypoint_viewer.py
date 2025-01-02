@@ -12,7 +12,7 @@ import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import pyqtgraph.Vector as Vector
 sys.path.append('../tools')
-from angleConversions import Euler2Rotation
+from tools.angleConversions import Euler2Rotation
 from chap11.dubins_parameters import dubins_parameters
 
 class waypoint_viewer():

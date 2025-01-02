@@ -17,7 +17,7 @@ import numpy as np
 from message_types.msg_state import msg_state
 sys.path.append('../tools')
 # import tools.angleConversions
-from angleConversions import Quaternion2Euler
+from tools.angleConversions import Quaternion2Euler
 import parameters.aerosonde_parameters as MAV
 
 

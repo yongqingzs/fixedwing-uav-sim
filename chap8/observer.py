@@ -12,7 +12,7 @@ import parameters.simulation_parameters as SIM
 import parameters.sensor_parameters as SENSOR
 import parameters.aerosonde_parameters as MAV
 sys.path.append('../tools')
-# from angleConversions import Euler2Rotation
+# from tools.angleConversions import Euler2Rotation
 
 from message_types.msg_state import msg_state
 

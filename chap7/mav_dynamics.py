@@ -19,7 +19,7 @@ from message_types.msg_sensors import msg_sensors
 import parameters.aerosonde_parameters as MAV
 import parameters.sensor_parameters as SENSOR
 sys.path.append('../tools')
-from angleConversions import Quaternion2Rotation, Quaternion2Euler, Euler2Rotation
+from tools.angleConversions import Quaternion2Rotation, Quaternion2Euler, Euler2Rotation
 
 class mav_dynamics:
     def __init__(self, Ts):

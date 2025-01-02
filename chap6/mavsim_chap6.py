@@ -4,8 +4,9 @@ mavsim_python
     - Last Update:
         2/5/2019 - RWB
 """
-import sys
-sys.path.append('..')
+import sys, os
+# sys.path.append('..')
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import numpy as np
 import parameters.simulation_parameters as SIM
 
@@ -16,13 +17,13 @@ from chap4.wind_simulation import wind_simulation
 from chap5.trim import compute_trim
 from chap6.autopilot import autopilot
 sys.path.append('../tools')
-from signals import signals
+from tools.signals import signals
 
 # initialize the visualization
 VIDEO = False  # True==write video, False==don't write video
 mav_view = mav_viewer()  # initialize the mav viewer
 data_view = data_viewer()  # initialize view of data plots
-if VIDEO == True:
+if VIDEO == True: # NOTE: 目前无效
     from chap2.video_writer import video_writer
     video = video_writer(video_name="chap6_video.avi",
                          bounding_box=(0, 0, 1000, 1000),
@@ -86,8 +87,5 @@ while sim_time < SIM.end_time:
     #-------increment time-------------
     sim_time += SIM.ts_simulation
 
+print("Simulation has ended")
 if VIDEO == True: video.close()
-
-
-
-

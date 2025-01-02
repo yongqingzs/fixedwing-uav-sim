@@ -11,7 +11,7 @@ from scipy.optimize import minimize
 import parameters.aerosonde_parameters as MAV
 from parameters.simulation_parameters import ts_simulation as Ts
 sys.path.append('../tools')
-from angleConversions import Euler2Quaternion, Quaternion2Euler
+from tools.angleConversions import Euler2Quaternion, Quaternion2Euler
 
 
 def compute_tf_model(mav, trim_state, trim_input):

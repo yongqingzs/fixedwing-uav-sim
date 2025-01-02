@@ -9,7 +9,7 @@ sys.path.append('..')
 import numpy as np
 from scipy.optimize import minimize
 sys.path.append('../tools')
-# from angleConversions import Euler2Quaternion
+# from tools.angleConversions import Euler2Quaternion
 # from state_derivatives import _derivatives
 
 def compute_trim(mav, Va, gamma):
@@ -45,7 +45,7 @@ def compute_trim(mav, Va, gamma):
                                 ])
              })
     # solve the minimization problem to find the trim states and inputs
-    res = minimize(trim_objective, x0, method='SLSQP', args = (mav, Va, gamma),
+    res = minimize(trim_objective, x0.flatten(), method='SLSQP', args = (mav, Va, gamma),
                    constraints=cons, options={'ftol': 1e-10, 'disp': True})
     # extract trim state and input and return
     trim_state = np.array([res.x[0:13]]).T

@@ -9,6 +9,8 @@ import numpy as np
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import pyqtgraph.Vector as Vector
+from OpenGL.GL import glGetString, GL_VERSION
+from OpenGL import platform
 
 class mav_viewer():
     def __init__(self):
@@ -28,6 +30,13 @@ class mav_viewer():
         self.plot_initialized = False # has the spacecraft been plotted yet?
         # get points that define the non-rotated, non-translated spacecraft and the mesh colors
         self.points, self.meshColors = self._get_spacecraft_points()
+
+        # context = platform.GetCurrentContext()
+        # if context == 0:
+        #     raise RuntimeError("No valid OpenGL context")
+        # else:
+        #     print("OpenGL context is valid")
+        #     print(glGetString(GL_VERSION))
 
     ###################################
     # public functions
