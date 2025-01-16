@@ -5,7 +5,7 @@ mavsim_python
         4/3/2019 - BGM
 """
 import sys
-sys.path.append('..')
+sys.path.append(sys.path[0] + '/..')
 import numpy as np
 import parameters.simulation_parameters as SIM
 import parameters.planner_parameters as PLAN
@@ -37,7 +37,7 @@ ctrl = autopilot(SIM.ts_simulation)
 obsv = observer(SIM.ts_simulation)
 path_follow = path_follower()
 path_manage = path_manager()
-path_plan = path_planner()
+path_plan = path_planner(3)
 
 from message_types.msg_map import msg_map
 map = msg_map(PLAN)

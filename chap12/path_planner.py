@@ -13,12 +13,13 @@ from planRRTDubins import planRRTDubins
 from planRRTDubinsProj import planRRTDubinsProj
 
 class path_planner:
-    def __init__(self):
+    def __init__(self, planner_flag_ = 5):
         # waypoints definition
         self.waypoints = msg_waypoints()
         self.rrt = planRRT(map)
         self.rrtDubins = planRRTDubins(map)
         self.rrtDubinsProj = planRRTDubinsProj(map)
+        self.planner_flag = planner_flag_
 
     def update(self, map, state, PLAN, world_view):
         # this flag is set for one time step to signal a redraw in the viewer
@@ -26,8 +27,8 @@ class path_planner:
         # planner_flag = 2  # return dubins waypoint path
         # planner_flag = 3  # plan path through city using straight-line RRT
         # planner_flag = 4  # plan path through city using dubins RRT
-        planner_flag = 5  # plan path through city using modified dubins RRT
-        if planner_flag == 1:
+        # planner_flag = 5  # plan path through city using modified dubins RRT
+        if self.planner_flag == 1:
             self.waypoints.type = 'fillet'
             self.waypoints.num_waypoints = 4
             Va = 25
@@ -38,7 +39,7 @@ class path_planner:
                             [1000, 1000, -100]]).T
             self.waypoints.airspeed[:, 0:self.waypoints.num_waypoints] \
                 = np.array([[Va, Va, Va, Va]])
-        elif planner_flag == 2:
+        elif self.planner_flag == 2:
             self.waypoints.type = 'dubins'
             self.waypoints.num_waypoints = 4
             Va = 25
@@ -54,7 +55,7 @@ class path_planner:
                              np.radians(45),
                              np.radians(45),
                              np.radians(-135)]])
-        elif planner_flag == 3:
+        elif self.planner_flag == 3:
             self.waypoints.type = 'fillet'
             self.waypoints.num_waypoints = 0
             Va = 25
@@ -99,7 +100,8 @@ class path_planner:
                     self.waypoints.ned[:, numOld] = waypoints.ned[:, 1]
                     self.waypoints.airspeed[:,numOld] = wpp_end.item(3)
                 self.waypoints.num_waypoints = numNew + numOld
-        elif planner_flag == 4:
+            print()
+        elif self.planner_flag == 4:
             self.waypoints.type = 'dubins'
             self.waypoints.num_waypoints = 0
             Va = 25
@@ -163,7 +165,7 @@ class path_planner:
                     self.waypoints.course[:, numOld] = waypoints.course[:, 1]
                     self.waypoints.airspeed[:, numOld] = wpp_end.item(4) * np.ones((1, numNew))
                 self.waypoints.num_waypoints = numNew + numOld
-        elif planner_flag == 5:
+        elif self.planner_flag == 5:
             # self.waypoints.type = ['dubins','dubins','dubins','dubins']
             self.waypoints.type = ['straight_line']
             # self.waypoints.type = 'dubins'

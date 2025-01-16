@@ -55,6 +55,7 @@ class mav_dynamics:
         # initialize true_state message
         self.msg_true_state = msg_state()
 
+        # sen_add
         self._forces = np.array([[0.], [0.], [0.]])
         # initialize the sensors message
         self.sensors = msg_sensors()
@@ -70,11 +71,11 @@ class mav_dynamics:
     # public functions
     def update_state(self, delta, wind):
         '''
-                    Integrate the differential equations defining dynamics, update sensors
-                    delta = (delta_a, delta_e, delta_r, delta_t) are the control inputs
-                    wind is the wind vector in inertial coordinates
-                    Ts is the time step between function calls.
-                '''
+            Integrate the differential equations defining dynamics, update sensors
+            delta = (delta_a, delta_e, delta_r, delta_t) are the control inputs
+            wind is the wind vector in inertial coordinates
+            Ts is the time step between function calls.
+        '''
         # get forces and moments acting on rigid bod
         forces_moments = self._forces_moments(delta)
 
@@ -105,6 +106,7 @@ class mav_dynamics:
 
     def update_sensors(self):
         "Return value of sensors on MAV: gyros, accels, static_pressure, dynamic_pressure, GPS"
+        # sen_add
         phi, theta, psi = Quaternion2Euler(self._state[6:10])
         self.sensors.gyro_x = self._state.item(10) + SENSOR.gyro_x_bias + SENSOR.gyro_sigma*np.random.randn()
         self.sensors.gyro_y = self._state.item(11) + SENSOR.gyro_y_bias + SENSOR.gyro_sigma*np.random.randn()
@@ -300,6 +302,7 @@ class mav_dynamics:
         return np.array([[fx, fy, fz, Mx, My, Mz]]).T
 
     def _motor_thrust_torque(self, Va, delta_t):
+        # sen_add
         # Compute thrust and torque due to propeller
         # map delta_t throttle command (0 to 1) into motor input voltage
         V_in = MAV.V_max * delta_t

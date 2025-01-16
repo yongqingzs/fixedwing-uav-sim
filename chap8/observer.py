@@ -92,6 +92,12 @@ class ekf_attitude:
         self.Ts = SIM.ts_control/self.N
 
     def update(self, state, measurement):
+        """
+        state: 通过低通滤波器估计的状态
+        measurement: 传感器测量值
+        NOTE:
+        1. state中不包含如加速度等信息，所以update需要measurement
+        """
         self.propagate_model(state)
         self.measurement_update(state, measurement)
         state.phi = self.xhat.item(0) #should this return something??
@@ -112,9 +118,12 @@ class ekf_attitude:
         return _h
 
     def propagate_model(self, state):
+        """
+        xhat: phi, theta ——> 状态方程里的状态
+        """
         # model propagation
         for i in range(0, self.N):
-             # propagate model
+            # propagate model
             self.xhat = self.xhat + self.Ts*self.f(self.xhat, state)
             # compute Jacobian
             A = jacobian(self.f, self.xhat, state)

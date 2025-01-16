@@ -56,12 +56,12 @@ class autopilot:
     def update(self, cmd, state):
 
         # lateral autopilot
-        course_wrapped = self.wrap(state.chi,cmd.course_command)
+        course_wrapped = self.wrap(state.chi,cmd.course_command) # 航迹偏转角
         phi_c = self.course_from_roll.update(course_wrapped, state.chi)
         # phi_c = np.radians(0)
         phi_c += cmd.phi_feedforward
         delta_a = self.roll_from_aileron.update(phi_c, state.phi, state.p)
-        delta_r = self.yaw_damper.update(state.r)
+        delta_r = self.yaw_damper.update(state.r)   # rudder
 
         # longitudinal autopilot
         h_c = cmd.altitude_command

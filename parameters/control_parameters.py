@@ -1,5 +1,5 @@
-import sys
-sys.path.append('..')
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import numpy as np
 import chap5.tf_coefficients as TF
 

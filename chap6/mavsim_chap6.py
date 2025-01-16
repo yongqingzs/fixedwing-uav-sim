@@ -62,6 +62,9 @@ while sim_time < SIM.end_time:
     commands.airspeed_command = Va_command.square(sim_time)
     commands.course_command = chi_command.square(sim_time)
     commands.altitude_command = h_command.square(sim_time)
+    # commands.airspeed_command = 25
+    # commands.course_command = 0
+    # commands.altitude_command = 210
     if sim_time >= 5:
         a = 1
     delta, commanded_state = ctrl.update(commands, estimated_state)

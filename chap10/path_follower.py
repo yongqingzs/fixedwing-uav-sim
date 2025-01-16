@@ -4,6 +4,8 @@ import sys
 
 sys.path.append('..')
 from message_types.msg_autopilot import msg_autopilot
+from message_types.msg_path import msg_path
+from message_types.msg_state import msg_state
 
 class path_follower:
     def __init__(self):
@@ -20,7 +22,7 @@ class path_follower:
             self._follow_orbit(path, state)
         return self.autopilot_commands
 
-    def _follow_straight_line(self, path, state):
+    def _follow_straight_line(self, path: msg_path, state: msg_state):
         #calculate the commanded height
         chi_q = atan2(path.line_direction.item(1),path.line_direction.item(0)) #chi of desired path
         R_i_p = np.array([[cos(chi_q), sin(chi_q), 0.], #rotation to frame of the desired path
@@ -42,14 +44,12 @@ class path_follower:
         e_p_y = e_p.item(1)
         chi_command = chi_q_wrapped - self.chi_inf*2./np.pi*atan(self.k_path*e_p_y)
 
-
-
         self.autopilot_commands.airspeed_command = path.airspeed
         self.autopilot_commands.course_command = chi_command
         self.autopilot_commands.altitude_command = h_d
         self.autopilot_commands.phi_feedforward = 0.
 
-    def _follow_orbit(self, path, state):
+    def _follow_orbit(self, path: msg_path, state: msg_state):
         d = np.sqrt((state.pn - path.orbit_center.item(0))**2 + (state.pe - path.orbit_center.item(1))**2)
         loopyThang = atan2(state.pe - path.orbit_center.item(1),state.pn - path.orbit_center.item(0))
         loopyThang_wrap = self._wrap(loopyThang, state.chi)

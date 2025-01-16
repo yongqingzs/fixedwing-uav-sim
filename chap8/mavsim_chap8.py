@@ -5,7 +5,8 @@ mavsim_python
         2/21/2019 - RWB
 """
 import sys
-sys.path.append('..')
+# sys.path.append('..')
+sys.path.append(sys.path[0] + "/..")
 import numpy as np
 import parameters.simulation_parameters as SIM
 
@@ -16,7 +17,7 @@ from chap6.autopilot import autopilot
 from chap7.mav_dynamics import mav_dynamics
 from chap8.observer import observer
 sys.path.append('../tools')
-from signals import signals
+from tools.signals import signals
 
 # initialize the visualization
 VIDEO = False  # True==write video, False==don't write video

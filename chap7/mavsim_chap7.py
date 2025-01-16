@@ -15,7 +15,7 @@ from chap4.wind_simulation import wind_simulation
 from chap6.autopilot import autopilot
 from chap7.mav_dynamics import mav_dynamics
 sys.path.append('../tools')
-from signals import signals
+from tools.signals import signals
 
 # initialize the visualization
 VIDEO = False  # True==write video, False==don't write video

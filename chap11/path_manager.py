@@ -3,6 +3,7 @@ import sys
 sys.path.append('..')
 from chap11.dubins_parameters import dubins_parameters
 from message_types.msg_path import msg_path
+from message_types.msg_waypoints import msg_waypoints
 
 class path_manager:
     def __init__(self):
@@ -21,13 +22,15 @@ class path_manager:
         self.manager_state = 1
         # dubins path parameters
         self.dubins_path = dubins_parameters()
+        # more
+        self.count = 0
 
-    def update(self, waypoints, radius, state):
+    def update(self, waypoints: msg_waypoints, radius, state):
         if self.path.flag_path_changed == True:
             self.path.flag_path_changed = False
         if isinstance(waypoints.type, str):
             if waypoints.type == 'straight_line':
-                self.line_manager(waypoints, state)
+                self.line_manager(waypoints, state)  # 相当于update
             elif waypoints.type == 'fillet':
                 self.fillet_manager(waypoints, radius, state)
             elif waypoints.type == 'dubins':
@@ -48,7 +51,7 @@ class path_manager:
             waypoints.flag_waypoints_changed = False
         return self.path
 
-    def line_manager(self, waypoints, state):
+    def line_manager(self, waypoints: msg_waypoints, state):
         if waypoints.num_waypoints < 3:
             if waypoints.flag_waypoints_changed:
                 self.path.flag = 'line'
@@ -174,7 +177,13 @@ class path_manager:
             self.ptr_next = 0
 
     def inHalfSpace(self, pos):
+        """
+        pos: 当前位置
+        halfspace_r: ptr_previous的坐标
+        halfspace_n: 三维半平面的单位法线
+        """
         if (pos-self.halfspace_r).T @ self.halfspace_n >= 0:
+            self.count += 1
             return True
         else:
             return False
